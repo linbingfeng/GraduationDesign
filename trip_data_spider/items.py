@@ -11,4 +11,4 @@ import scrapy
 class TripDataSpiderItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    results = scrapy.Field()
