@@ -1,28 +1,24 @@
 # -*- coding: utf-8 -*-
-from scrapy.cmdline import execute
 import sys
+import os
 import time
 
+from scrapy.cmdline import execute
+
 class Start():
-    # def __init__(self):
-    #     self.conf = {}
-    #     self.load_conf()
-    #
-    # def load_conf(self):
-    #     with open('conf/spider_start.conf') as f:
-    #         conf_str = f.readlines()
-    #     for item in conf_str:
-    #         item_spilt = item.split('=')
-    #         self.conf[item_spilt[0].rstrip()] = item_spilt[1].rstrip('\n').rstrip()
+
+    def __init__(self):
+        self.log_path = conf.log_path
 
     def run(self):
-        # log_path = self.conf['spider_log_path']+'/CtripMHotelPriceSpider/spider_log_'+str(int(time.time()))
-        # sys.argv = ["scrapy", "crawl", "CtripMHotelPriceSpider", "--logfile="+log_path]
-        sys.argv = ["scrapy", "crawl", "LyPcHotelInfoSpider"]
+        log_path = self.log_path + '/LyPcHotelInfoSpider/spider_log_' + str(int(time.time()))
+        dir_path = self.log_path + r'/LyPcHotelInfoSpider'
+        if not os.path.exists(dir_path):
+            os.makedirs(dir_path)
+        sys.argv = ["scrapy", "crawl", "LyPcHotelInfoSpider","--logfile="+log_path]
         execute()
 
-# sys.argv = ["scrapy", "crawl", "elong_spider_slave"]
-# execute()
+
 
 if __name__ == '__main__':
     start = Start()

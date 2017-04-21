@@ -2,7 +2,6 @@
 import time
 import json
 from scrapy import Spider
-from scrapy.exceptions import CloseSpider
 from scrapy import Request
 from trip_data_spider.utils.MongoDBUtil import MongodbUtil
 
@@ -60,4 +59,8 @@ class LyPcHotelInfoSpider(Spider):
                 item["hotel_name"] = h["Name"]
                 item["hotel_id"] = h["Id"]
                 item["price"] = h["LowestPrice"]
-                self.mongo.write(item,'ly_pc_hotel')
+                results_item = {
+                    "collection":'ly_pc_hotel',
+                    "results":item
+                }
+                yield results_item

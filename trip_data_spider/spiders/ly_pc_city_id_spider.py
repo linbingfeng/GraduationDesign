@@ -4,11 +4,9 @@ import os
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-import json, re
 from scrapy import Request
 import scrapy
 from trip_data_spider.utils.MongoDBUtil import MongodbUtil
-from scrapy.exceptions import CloseSpider
 
 
 class LyPcCityIdSpider(scrapy.Spider):
@@ -36,6 +34,7 @@ class LyPcCityIdSpider(scrapy.Spider):
                     item["city_name"] = body[i][1]
                     item["city_id"] = body[i][0]
                     item["city_name_en"] = body[i][3]
-                    self.mongo.write(item,"ly_pc_city")
-                else:
-                    raise CloseSpider('finished')
+                    results_item = {}
+                    results_item["results"] = item
+                    results_item["collection"] = "ly_pc_city"
+                    yield results_item
